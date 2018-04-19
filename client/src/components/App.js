@@ -166,7 +166,7 @@ class App extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (this.state.redirectDetail || this.state.redirectCart) {
+    if (this.state.redirectDetail || this.state.redirectCart || this.state.redirectCongrats) {
       this.setState({
         redirectDetail: false,
         redirectCart: false,
