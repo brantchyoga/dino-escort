@@ -11,18 +11,33 @@ class Cart extends Component {
   constructor(props){
     super(props)
     this.state = {
-      startDate: moment()
+      startDate: moment(),
+      endDate: moment(),
     }
-    this.handleChange = this.handleChange.bind(this);
+    this.handleChangeEnd = this.handleChangeEnd.bind(this);
+    this.handleChangeStart = this.handleChangeStart.bind(this);
   }
 
-  handleChange(date) {
+  handleChangeStart(date) {
     this.setState({
-      startDate: date
+      startDate: date,
     });
+  }
+  handleChangeEnd(date) {
+    this.setState({
+      endDate: date,
+    });
+  }
+  componentDidMount(){
+    this.setState({
+      startDate: moment(),
+      endDate: moment(),
+    })
   }
 
   render(){
+    console.log(this.state.startDate);
+    console.log(this.state.endDate);
     var dinosInCart = this.props.cart
     console.log(dinosInCart)
     console.log(this.props.congrats)
@@ -70,15 +85,32 @@ class Cart extends Component {
 
             <div>
               <h3 className='underline'>Pick a date</h3>
+
               <DatePicker
                 selected={this.state.startDate}
-                onChange={this.handleChange}
+                selectsStart
+                startDate={this.state.startDate}
+                endDate={this.state.endDate}
+                onChange={this.handleChangeStart}
                 showTimeSelect
-                timeFormat="HH:mm"
-                timeIntervals={15}
+                timeFormat="HH"
+                timeIntervals={60}
                 dateFormat="LLL"
                 timeCaption="time"
-              />
+            />
+
+            <DatePicker
+                selected={this.state.endDate}
+                selectsEnd
+                startDate={this.state.startDate}
+                endDate={this.state.endDate}
+                onChange={this.handleChangeEnd}
+                showTimeSelect
+                timeFormat="HH"
+                timeIntervals={60}
+                dateFormat="LLL"
+                timeCaption="time"
+            />
               <button type="submit" onClick={this.props.bookClick}>Book All In Cart!</button>
             </div>
           </div>
